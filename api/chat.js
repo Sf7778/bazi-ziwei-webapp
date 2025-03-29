@@ -23,7 +23,8 @@ export default async function handler(req, res) {
     });
 
     const data = await response.json();
-    const resultText = data.choices?.[0]?.message?.content || '無法解析回應';
+    console.log('OpenAI 回傳原始內容：', data);
+    const resultText = data.choices?.[0]?.message?.content || JSON.stringify(data, null, 2);
     res.status(200).json({ result: resultText });
   } catch (error) {
     res.status(500).json({ error: '伺服器錯誤' });
